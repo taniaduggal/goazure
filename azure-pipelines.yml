@@ -11,7 +11,7 @@ variables:
   value: 'Dockerfile'
 - name: System.Debug
   value: true
-- group: DockerHubSecrets
+
 
 
 jobs:
