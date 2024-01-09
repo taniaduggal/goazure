@@ -11,16 +11,32 @@ variables:
   value: 'Dockerfile'
 - name: System.Debug
   value: true
+- name: DOCKERHUB_USERNAME
+  value: ''
+  secret: true
+- name: DOCKERHUB_PASSWORD
+  value: ''
+  secret: true
 
 jobs:
 - job: BuildAndPush
   displayName: 'Build and Push to Docker Hub'
   steps:
     
+
+  - task: Docker@2
+    displayName: 'Login to Docker Hub'
+    inputs:
+      server: 'docker.io'
+      repository: $(dockerHubRepository)
+      command: 'login'
+      username: $(DOCKERHUB_USERNAME)
+      password: $(DOCKERHUB_PASSWORD)
+
   - task: Docker@2
     displayName: 'Build Docker image'
     inputs:
-      containerRegistry: 'docker'
+      server: 'docker.io'
       repository: $(dockerHubRepository)
       command: 'build'
       Dockerfile: $(dockerfilePath)
@@ -30,7 +46,9 @@ jobs:
   - task: Docker@2
     displayName: 'Push Docker image to Docker Hub'
     inputs:
-      containerRegistry: 'docker' 
+      server: 'docker.io' 
       repository: $(dockerHubRepository)
       command: 'push'
       tags: '$(Build.BuildId)'
+  
+
