@@ -23,7 +23,7 @@ jobs:
   - task: Docker@2
     displayName: 'Login to Docker Hub'
     inputs:
-      server: 'docker.io'
+      containerRegistry: 'docker'
       repository: $(dockerHubRepository)
       command: 'login'
       username: $(DOCKERHUB_USERNAME)
@@ -32,7 +32,7 @@ jobs:
   - task: Docker@2
     displayName: 'Build Docker image'
     inputs:
-      server: 'docker.io'
+      containerRegistry: 'docker'
       repository: $(dockerHubRepository)
       command: 'build'
       Dockerfile: $(dockerfilePath)
@@ -42,7 +42,7 @@ jobs:
   - task: Docker@2
     displayName: 'Push Docker image to Docker Hub'
     inputs:
-      server: 'docker.io' 
+      containerRegistry: 'docker'
       repository: $(dockerHubRepository)
       command: 'push'
       tags: '$(Build.BuildId)'
