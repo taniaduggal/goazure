@@ -11,10 +11,7 @@ variables:
   value: 'Dockerfile'
 - name: System.Debug
   value: true
-- name: DOCKERHUB_USERNAME
-  value: ''
-- name: DOCKERHUB_PASSWORD
-  value: ''
+- group: DockerHubSecrets
 
 
 jobs:
