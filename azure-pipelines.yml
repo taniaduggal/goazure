@@ -13,10 +13,9 @@ variables:
   value: true
 - name: DOCKERHUB_USERNAME
   value: ''
-  secret: true
 - name: DOCKERHUB_PASSWORD
   value: ''
-  secret: true
+
 
 jobs:
 - job: BuildAndPush
