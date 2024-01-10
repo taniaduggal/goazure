@@ -20,8 +20,8 @@ jobs:
   steps:
   
     - task: DownloadSecureFile@1
-    inputs:
-      secureFile: 'trial.env'
+      inputs:
+        secureFile: 'trial.env'
 
   - script: |
       cp $(Agent.TempDirectory)/trial.env .env
