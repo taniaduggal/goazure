@@ -18,7 +18,14 @@ jobs:
 - job: BuildAndPush
   displayName: 'Build and Push to Docker Hub'
   steps:
-    
+  
+    - task: DownloadSecureFile@1
+    inputs:
+      secureFile: 'trial.env'
+
+  - script: |
+      cp $(Agent.TempDirectory)/trial.env .env
+    displayName: 'Copy trial.env to .env'
 
   # - task: Docker@2
   #   displayName: 'Login to Docker Hub'
@@ -38,6 +45,7 @@ jobs:
       Dockerfile: $(dockerfilePath)
       buildContext: '.'
       tags: '$(Build.BuildId)'
+      arguments: '--build-arg DB_PASSWORD=$(DB_PASSWORD)'
 
   - task: Docker@2
     displayName: 'Push Docker image to Docker Hub'
